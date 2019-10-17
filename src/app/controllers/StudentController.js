@@ -11,10 +11,18 @@ class StudentController {
   async store(request, response) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
-      email: Yup.string().required(),
-      idade: Yup.number().required(),
-      peso: Yup.number().required(),
-      altura: Yup.string().required(),
+      email: Yup.string()
+        .email()
+        .required(),
+      idade: Yup.number()
+        .required()
+        .positive(),
+      peso: Yup.number()
+        .required()
+        .positive(),
+      altura: Yup.number()
+        .required()
+        .positive(),
     });
 
     if (!(await schema.isValid(request.body))) {
@@ -44,6 +52,25 @@ class StudentController {
   }
 
   async update(request, response) {
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      email: Yup.string()
+        .email()
+        .required(),
+      idade: Yup.number()
+        .required()
+        .positive(),
+      peso: Yup.number()
+        .required()
+        .positive(),
+      altura: Yup.number()
+        .required()
+        .positive(),
+    });
+
+    if (!(await schema.isValid(request.body))) {
+      return response.status(400).json({ error: 'Validation fails' });
+    }
     const { id } = request.params;
     const student = await Student.findByPk(id);
     if (!student) {
