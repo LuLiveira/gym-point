@@ -71,6 +71,7 @@ class StudentController {
     if (!(await schema.isValid(request.body))) {
       return response.status(400).json({ error: 'Validation fails' });
     }
+
     const { id } = request.params;
     const student = await Student.findByPk(id);
     if (!student) {
