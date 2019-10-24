@@ -88,6 +88,50 @@ class MatriculaController {
 
     return res.json(matricula);
   }
+
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      start_date: Yup.date(),
+      plan_id: Yup.number().positive(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation Fails ' });
+    }
+
+    const { id } = req.params;
+
+    const { start_date, plan_id } = req.body;
+
+    const matricula = await Matricula.findByPk(id);
+
+    if (!matricula) {
+      return res.status(400).json({ error: 'Invalid id' });
+    }
+
+    const date = parseISO(start_date);
+
+    if (isBefore(date, new Date())) {
+      return res.status(400).json({ error: 'Invalid date' });
+    }
+
+    const plano = req.body.plan_id
+      ? await Plano.findByPk(plan_id)
+      : await Plano.findByPk(matricula.plan_id);
+
+    const price = plano.price * plano.duration;
+
+    const end_date = addMonths(date, plano.duration);
+
+    const matriculaAtualizada = await matricula.update({
+      start_date,
+      end_date,
+      price,
+      plan_id,
+    });
+
+    return res.json(matriculaAtualizada);
+  }
 }
 
 export default new MatriculaController();
