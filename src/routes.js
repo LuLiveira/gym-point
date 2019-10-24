@@ -20,6 +20,7 @@ routes.get('/planos', PlanoController.index);
 routes.put('/planos/:id', PlanoController.update);
 routes.delete('/planos/:id', PlanoController.destroy);
 
+routes.get('/matriculas', MatriculaController.index);
 routes.post('/matriculas', MatriculaController.store);
 
 routes.get('/students', StudentController.index);

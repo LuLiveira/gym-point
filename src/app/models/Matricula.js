@@ -5,7 +5,7 @@ export default class Matricula extends Model {
     super.init(
       {
         start_date: Sequelize.DATE,
-        end_date: Sequelize.STRING,
+        end_date: Sequelize.DATE,
         price: Sequelize.DOUBLE,
       },
       {
