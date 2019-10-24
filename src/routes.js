@@ -23,6 +23,7 @@ routes.delete('/planos/:id', PlanoController.destroy);
 routes.get('/matriculas', MatriculaController.index);
 routes.post('/matriculas', MatriculaController.store);
 routes.put('/matriculas/:id', MatriculaController.update);
+routes.delete('/matriculas/:id', MatriculaController.destroy);
 
 routes.get('/students', StudentController.index);
 routes.post('/students', StudentController.store);

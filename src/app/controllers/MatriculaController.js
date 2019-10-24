@@ -132,6 +132,22 @@ class MatriculaController {
 
     return res.json(matriculaAtualizada);
   }
+
+  async destroy(req, res) {
+    const { id } = req.params;
+
+    if (!req.headers.authorization) {
+      return res.status(401).json({ error: 'Invalid credencials' });
+    }
+
+    await Matricula.destroy({
+      where: {
+        id,
+      },
+    });
+
+    return res.send();
+  }
 }
 
 export default new MatriculaController();
