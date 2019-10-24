@@ -4,11 +4,16 @@ import StudentController from './app/controllers/StudentController';
 import UserController from './app/controllers/UserController';
 import PlanoController from './app/controllers/PlanoController';
 import MatriculaController from './app/controllers/MatriculaController';
+import CheckinController from './app/controllers/CheckinController';
+
 import isAuthenticated from './middleware/auth';
 
 const routes = new Router();
 
 routes.post('/sessions', SessionController.store);
+
+routes.post('/students/:id/checkins', CheckinController.store);
+routes.get('/students/:id/checkins', CheckinController.index);
 
 routes.use(isAuthenticated);
 
