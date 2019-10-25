@@ -41,6 +41,10 @@ class HelpOrderController {
       ],
     });
 
+    if (helpOrder.answer) {
+      return res.status(400).json({ error: 'Answer already exists' });
+    }
+
     const { answer } = req.body;
 
     const answer_at = new Date();
